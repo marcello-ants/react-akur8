@@ -1,0 +1,10 @@
+$primary-color: #333;
+$secondary-color: yellow;
+
+body {
+  background-color: $primary-color;
+}
+
+.header {
+  background-color: $secondary-color;
+}
