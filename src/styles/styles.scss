@@ -1,10 +1,68 @@
 $primary-color: #333;
 $secondary-color: yellow;
 
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
 body {
   background-color: $primary-color;
 }
 
 .header {
-  background-color: $secondary-color;
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  top: 0;
+  left: 0;
+  background-color: yellow;
+  z-index: 10;
 }
+
+.main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 300px auto 300px;
+  top: 100px;
+}
+
+.footer {
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  left: 0;
+  bottom: 0;
+  background-color: green;
+  z-index: 10;
+}
+
+.left-column {
+  width: 300px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  background-color: burlywood;
+  padding: 10px;
+
+  // .post-list {
+  // }
+
+  // .filter-input {
+  // }
+}
+
+.right-column {
+  width: 300px;
+  height: calc(100vh - 200px);
+  background-color: blueviolet;
+  overflow-y: auto;
+  padding: 10px;
+
+  // .post-event {
+  // }
+}
+
+
