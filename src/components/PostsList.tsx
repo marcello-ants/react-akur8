@@ -10,9 +10,10 @@ type Post = {
 type Props = {
   posts: Post[];
   selectedPost: Post | null;
+  onSelectPost: (post: Post) => void;
 };
 
-const PostList: React.FC<Props> = ({ posts, selectedPost }) => {
+const PostList: React.FC<Props> = ({ posts, selectedPost, onSelectPost }) => {
   const [searchText, setSearchText] = useState("");
 
   const filteredPosts = posts.filter((post) =>
@@ -33,7 +34,11 @@ const PostList: React.FC<Props> = ({ posts, selectedPost }) => {
       ) : (
         <ul className="post-list">
           {filteredPosts.map((post) => (
-            <li key={post.id}>
+            <li
+              key={post.id}
+              className={post === selectedPost ? "selected" : ""}
+              onClick={() => onSelectPost(post)}
+            >
               <h3>{post.name}</h3>
               {selectedPost?.id === post.id && <p>Selected</p>}
             </li>

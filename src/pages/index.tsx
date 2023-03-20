@@ -24,6 +24,11 @@ type Props = {
 
 const Home = ({ posts }: Props) => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+
+  const handlePostSelection = (post: Post) => {
+    setSelectedPost(post);
+  };
+
   return (
     <>
       <Head>
@@ -36,7 +41,11 @@ const Home = ({ posts }: Props) => {
         <Header />
         <main className="main">
           <div className="left-column">
-            <PostsList posts={posts} selectedPost={selectedPost} />
+            <PostsList
+              posts={posts}
+              selectedPost={selectedPost}
+              onSelectPost={handlePostSelection}
+            />
           </div>
           <div className="main-content"></div>
           <div className="right-column"></div>

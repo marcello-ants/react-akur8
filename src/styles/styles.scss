@@ -77,6 +77,10 @@ input {
     margin-bottom: 10px;
     border-radius: 10px;
   }
+
+  .post-list li.selected {
+    border: 2px solid red;
+  }
   
   .post-list li:last-child {
     margin-bottom: 100px;
