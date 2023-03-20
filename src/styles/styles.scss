@@ -7,6 +7,7 @@ $secondary-color: yellow;
   border: 0;
   font-family: Arial, sans-serif;
   font-size: 16px;
+  list-style: none;
 }
 
 body {
@@ -45,10 +46,15 @@ body {
   height: calc(100vh - 200px);
   overflow-y: auto;
   background-color: burlywood;
-  padding: 10px;
+  padding: 30px;
 
-  // .post-list {
-  // }
+  .post-list li {
+    border: 1px solid black;
+    padding: 4px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+  }
 
   // .filter-input {
   // }
