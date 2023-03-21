@@ -6,12 +6,14 @@ type Post = {
 };
 
 type Props = {
+  refs: { [key: string]: React.RefObject<HTMLLIElement> };
   posts: Post[];
   selectedPost: Post | null;
   onPostSelected: (post: Post) => void;
 };
 
 const PostDetailList: React.FC<Props> = ({
+  refs,
   posts,
   selectedPost,
   onPostSelected,
@@ -22,30 +24,21 @@ const PostDetailList: React.FC<Props> = ({
 
   return (
     <div className="post-detail-list">
-      {selectedPost ? (
-        <div className="selected-post-container">
-          <div className="selected-post">
-            <h2>{selectedPost.name}</h2>
-            <p>{selectedPost.content}</p>
-          </div>
-        </div>
-      ) : (
-        <p>No post selected</p>
-      )}
-      <div className="post-list">
+      <ul className="post-list">
         {posts.map((post) => (
-          <div
+          <li
+            key={post.id}
+            ref={refs[post.id]}
             className={`post-container ${
               selectedPost && selectedPost.id === post.id ? "selected" : ""
             }`}
-            key={post.id}
             onClick={() => handlePostClick(post)}
           >
             <h3>{post.name}</h3>
             <p>{post.content}</p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

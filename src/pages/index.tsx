@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -23,11 +23,24 @@ type Props = {
   posts: Post[];
 };
 
+type Refs = { [key: string]: React.RefObject<HTMLLIElement> };
+
 const Home = ({ posts }: Props) => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
+  const refs = useRef<Refs>(
+    posts.reduce((acc: Refs, value) => {
+      acc[value.id] = React.createRef<HTMLLIElement>();
+      return acc;
+    }, {})
+  );
+
   const handlePostSelection = (post: Post) => {
     setSelectedPost(post);
+    refs.current[post.id].current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
   };
 
   return (
@@ -50,6 +63,7 @@ const Home = ({ posts }: Props) => {
           </div>
           <div className="main-content">
             <PostsDetails
+              refs={refs.current}
               posts={posts}
               selectedPost={selectedPost}
               onPostSelected={handlePostSelection}
