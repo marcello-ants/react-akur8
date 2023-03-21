@@ -7,6 +7,7 @@ import styles from "@/styles/Home.module.css";
 import { getPosts } from "@/lib/posts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PostsDetails from "@/components/PostsDetails";
 import PostsList from "@/components/PostsList";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -47,7 +48,13 @@ const Home = ({ posts }: Props) => {
               onSelectPost={handlePostSelection}
             />
           </div>
-          <div className="main-content"></div>
+          <div className="main-content">
+            <PostsDetails
+              posts={posts}
+              selectedPost={selectedPost}
+              onPostSelected={handlePostSelection}
+            />
+          </div>
           <div className="right-column"></div>
         </main>
         <Footer />
