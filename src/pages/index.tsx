@@ -22,6 +22,7 @@ type Refs = { [key: string]: React.RefObject<HTMLLIElement> };
 const Home = ({ fetchedPosts }: Props) => {
   const [posts, setPosts] = useState<Post[]>(fetchedPosts);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [searchText, setSearchText] = useState("");
 
   const refs = useRef<Refs>(
     posts.reduce((acc: Refs, value) => {
@@ -34,12 +35,24 @@ const Home = ({ fetchedPosts }: Props) => {
     refs.current[newPost.id] = React.createRef<HTMLLIElement>();
   };
 
+  const filterPosts = (posts: Post[], searchText: string) => {
+    return posts.filter((post) =>
+      post.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+  };
+
+  const filteredPosts = filterPosts(posts, searchText);
+
   const handlePostSelection = (post: Post) => {
     setSelectedPost(post);
     refs.current[post.id].current?.scrollIntoView({
       behavior: "smooth",
       block: "end",
     });
+  };
+
+  const handleSearchTextChange = (text: string) => {
+    setSearchText(text);
   };
 
   const handleAddPost = (newPost: Post) => {
@@ -64,16 +77,17 @@ const Home = ({ fetchedPosts }: Props) => {
         <main className="main">
           <div className="left-column">
             <PostsList
-              posts={posts}
+              posts={filteredPosts ? filteredPosts : posts}
               selectedPost={selectedPost}
-              onSelectPost={handlePostSelection}
+              onPostSelected={handlePostSelection}
+              onSearchTextChange={handleSearchTextChange}
             />
           </div>
           <div className="main-content">
             <CreatePost onAddPost={handleAddPost} />
             <PostsDetails
               refs={refs.current}
-              posts={posts}
+              posts={filteredPosts ? filteredPosts : posts}
               selectedPost={selectedPost}
               onPostSelected={handlePostSelection}
               onPostRemoved={handlePostRemoved}

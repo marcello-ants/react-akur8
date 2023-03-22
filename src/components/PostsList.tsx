@@ -4,15 +4,22 @@ import { Post } from "@/types";
 type Props = {
   posts: Post[];
   selectedPost: Post | null;
-  onSelectPost: (post: Post) => void;
+  onPostSelected: (post: Post) => void;
+  onSearchTextChange: (searchText: string) => void;
 };
 
-const PostList: React.FC<Props> = ({ posts, selectedPost, onSelectPost }) => {
+const PostList: React.FC<Props> = ({
+  posts,
+  selectedPost,
+  onPostSelected,
+  onSearchTextChange,
+}) => {
   const [searchText, setSearchText] = useState("");
 
-  const filteredPosts = posts.filter((post) =>
-    post.name.toLowerCase().includes(searchText.toLocaleLowerCase())
-  );
+  const handleSearchTextChange = (text: string) => {
+    setSearchText(text);
+    onSearchTextChange(text);
+  };
 
   return (
     <div>
@@ -21,17 +28,17 @@ const PostList: React.FC<Props> = ({ posts, selectedPost, onSelectPost }) => {
         placeholder="Filter posts"
         className="post-filter"
         value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
+        onChange={(e) => handleSearchTextChange(e.target.value)}
       />
-      {filteredPosts.length === 0 ? (
+      {posts.length === 0 ? (
         <p>No posts found</p>
       ) : (
         <ul className="post-list">
-          {filteredPosts.map((post) => (
+          {posts.map((post) => (
             <li
               key={post.id}
               className={post === selectedPost ? "selected" : ""}
-              onClick={() => onSelectPost(post)}
+              onClick={() => onPostSelected(post)}
             >
               <h3>{post.name}</h3>
               {selectedPost?.id === post.id && <p>Selected</p>}
