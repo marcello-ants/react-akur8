@@ -17,7 +17,9 @@ body {
   background-color: $primary-color;
 }
 
-div, input {
+div,
+input,
+textarea {
   box-sizing: border-box;
 }
 
@@ -67,7 +69,7 @@ div, input {
     font-size: 1.2rem;
     margin-bottom: 20px;
     transition: border-color 0.3s ease-in-out;
-  
+
     &:focus {
       outline: none;
       border-color: $secondary-color;
@@ -84,13 +86,14 @@ div, input {
   .post-list li.selected {
     border: 2px solid red;
   }
-  
+
   .post-list li:last-child {
     margin-bottom: 20px;
   }
 }
 
 .main-content {
+  padding: 40px;
 
   .post-detail-wrapper {
     display: flex;
@@ -121,18 +124,79 @@ div, input {
   .post-container.selected {
     border: 2px solid red;
   }
+
+  /* Create New Post */
+  .create-new-post {
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+
+    h3 {
+      margin-bottom: 20px;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .create-new-post input {
+    width: 400px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    transition: border-color 0.3s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-color: $secondary-color;
+    }
+  }
+
+  textarea {
+    height: 80px;
+  }
+
+  .create-new-post button {
+    width: 80px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    cursor: pointer;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }
 }
 
 .right-column {
   position: sticky;
   top: 100px;
   right: 0;
-
   width: 300px;
   height: calc(100vh - 200px);
   background-color: blueviolet;
   overflow-y: auto;
   padding: 10px;
 }
-
-
