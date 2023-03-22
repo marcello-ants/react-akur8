@@ -5,20 +5,23 @@ type Props = {
   onAddPost: (post: Post) => void;
 };
 
-function CreatePost({ onAddPost }: Props) {
+const CreatePost = ({ onAddPost }: Props) => {
   const [name, setName] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
+  const [isTouched, setIsTouched] = useState<boolean>(false);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setIsValid(event.target.value.length >= 6);
+    setIsTouched(true);
   };
 
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setContent(event.target.value);
+    setIsTouched(true);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,6 +30,7 @@ function CreatePost({ onAddPost }: Props) {
     let id = Date.now().toString();
     setName("");
     setContent("");
+    setIsTouched(false);
 
     const newPost: Post = {
       id,
@@ -43,6 +47,7 @@ function CreatePost({ onAddPost }: Props) {
     setName("");
     setContent("");
     setIsValid(false);
+    setIsTouched(false);
   };
 
   return (
@@ -58,7 +63,7 @@ function CreatePost({ onAddPost }: Props) {
             onChange={handleTitleChange}
             required
           />
-          {!isValid && (
+          {name && !isValid && (
             <span className="error-message">
               Title must be at least 6 characters.
             </span>
@@ -77,13 +82,13 @@ function CreatePost({ onAddPost }: Props) {
           <button type="submit" disabled={!isValid}>
             Create
           </button>
-          <button type="button" onClick={handleReset}>
+          <button type="button" disabled={!isTouched} onClick={handleReset}>
             Reset
           </button>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default CreatePost;

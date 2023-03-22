@@ -23,6 +23,15 @@ textarea {
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .header {
   position: fixed;
   width: 100%;
@@ -94,6 +103,18 @@ textarea {
 
 .main-content {
   padding: 40px;
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-actions {
+    text-align: right;
+  }
+
+  .form-actions :last-child {
+    margin-left: 8px;
+  }
 
   .post-detail-wrapper {
     display: flex;
@@ -190,7 +211,6 @@ textarea {
     border-radius: 5px;
     background-color: #222;
     color: white;
-    cursor: pointer;
   }
 
   .error-message {
