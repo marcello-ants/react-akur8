@@ -8,8 +8,8 @@ import { Post } from "@/types";
 import CreatePost from "@/components/CreatePost";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import PostsDetails from "@/components/PostsDetails";
-import PostsList from "@/components/PostsList";
+import PostsList from "@/components/PostList";
+import PostDetailList from "@/components/PostDetailList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -85,7 +85,7 @@ const Home = ({ fetchedPosts }: Props) => {
           </div>
           <div className="main-content">
             <CreatePost onAddPost={handleAddPost} />
-            <PostsDetails
+            <PostDetailList
               refs={refs.current}
               posts={filteredPosts ? filteredPosts : posts}
               selectedPost={selectedPost}
