@@ -41,7 +41,6 @@ const PostList: React.FC<Props> = ({
               onClick={() => onPostSelected(post)}
             >
               <h3>{post.name}</h3>
-              {selectedPost?.id === post.id && <p>Selected</p>}
             </li>
           ))}
         </ul>

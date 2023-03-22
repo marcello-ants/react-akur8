@@ -47,7 +47,7 @@ const Home = ({ fetchedPosts }: Props) => {
     setSelectedPost(post);
     refs.current[post.id].current?.scrollIntoView({
       behavior: "smooth",
-      block: "end",
+      block: "center",
     });
   };
 
