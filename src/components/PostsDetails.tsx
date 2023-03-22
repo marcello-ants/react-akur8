@@ -10,6 +10,7 @@ type Props = {
   posts: Post[];
   selectedPost: Post | null;
   onPostSelected: (post: Post) => void;
+  onPostRemoved: (post: Post) => void;
 };
 
 const PostDetailList: React.FC<Props> = ({
@@ -17,9 +18,22 @@ const PostDetailList: React.FC<Props> = ({
   posts,
   selectedPost,
   onPostSelected,
+  onPostRemoved,
 }) => {
   const handlePostClick = (post: Post) => {
     onPostSelected(post);
+  };
+
+  const handlePostRemove = (event: React.MouseEvent, post: Post) => {
+    event.stopPropagation();
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (confirmDelete) {
+      onPostRemoved(post);
+    }
   };
 
   return (
@@ -34,7 +48,15 @@ const PostDetailList: React.FC<Props> = ({
             }`}
             onClick={() => handlePostClick(post)}
           >
-            <h3>{post.name}</h3>
+            <div className="post-detail-title">
+              <h3>{post.name}</h3>
+              <span
+                className="remove-icon"
+                onClick={(event) => handlePostRemove(event, post)}
+              >
+                X
+              </span>
+            </div>
             <p>{post.content}</p>
           </li>
         ))}
