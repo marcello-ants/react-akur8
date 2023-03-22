@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-
-type Post = {
-  id: string;
-  name: string;
-  content: string;
-};
+import { Post } from "@/types";
 
 type Props = {
   onAddPost: (post: Post) => void;

@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { getPosts } from "@/lib/posts";
+import { Post } from "@/types";
 import CreatePost from "@/components/CreatePost";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,13 +12,6 @@ import PostsDetails from "@/components/PostsDetails";
 import PostsList from "@/components/PostsList";
 
 const inter = Inter({ subsets: ["latin"] });
-
-type Post = {
-  id: string;
-  name: string;
-  content: string;
-  selected?: boolean;
-};
 
 type Props = {
   fetchedPosts: Post[];

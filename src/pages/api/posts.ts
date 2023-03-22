@@ -1,12 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
-// TODO: add types folder
-type Post = {
-  id: string;
-  name: string;
-  content: string;
-  selected?: boolean;
-};
+import { Post } from "@/types";
 
 export default function handler(
   req: NextApiRequest,
@@ -17,7 +10,6 @@ export default function handler(
       id: "0",
       name: "My first post",
       content: "Post text to display",
-      selected: true,
     },
     {
       id: "1",
@@ -35,7 +27,6 @@ export default function handler(
       id: "3",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "4",
@@ -53,7 +44,6 @@ export default function handler(
       id: "6",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "7",
@@ -70,7 +60,6 @@ export default function handler(
       id: "9",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "10",
@@ -88,7 +77,6 @@ export default function handler(
       id: "12",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "13",
@@ -106,7 +94,6 @@ export default function handler(
       id: "15",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "16",
@@ -123,7 +110,6 @@ export default function handler(
       id: "18",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "19",
@@ -141,7 +127,6 @@ export default function handler(
       id: "21",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "22",
@@ -159,7 +144,6 @@ export default function handler(
       id: "24",
       name: "My first post",
       content: "Post text to display",
-      selected: false,
     },
     {
       id: "25",

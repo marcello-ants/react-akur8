@@ -1,11 +1,5 @@
 import { useState } from "react";
-
-type Post = {
-  id: string;
-  name: string;
-  content: string;
-  selected?: boolean;
-};
+import { Post } from "@/types";
 
 type Props = {
   posts: Post[];

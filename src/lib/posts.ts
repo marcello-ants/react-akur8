@@ -1,10 +1,4 @@
-// TODO: create types folder
-type Post = {
-  id: string;
-  name: string;
-  content: string;
-  selected?: boolean;
-};
+import { Post } from "@/types";
 
 export async function getPosts(): Promise<Post[]> {
   // TODO: use const res = await fetch("/api/posts");

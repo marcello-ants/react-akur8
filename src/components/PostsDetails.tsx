@@ -1,9 +1,4 @@
-type Post = {
-  id: string;
-  name: string;
-  content: string;
-  selected?: boolean;
-};
+import { Post } from "@/types";
 
 type Props = {
   refs: { [key: string]: React.RefObject<HTMLLIElement> };
