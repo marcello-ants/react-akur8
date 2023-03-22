@@ -1,7 +1,8 @@
 $primary-color: white;
 $secondary-color: #f59e0b;
 $font-family: "Roboto", sans-serif;
-
+$post-width: 300px;
+$post-height: 200px;
 
 * {
   margin: 0;
@@ -48,6 +49,8 @@ div, input {
 }
 
 .left-column {
+  position: sticky;
+  top: 100px;
   width: 300px;
   height: calc(100vh - 200px);
   overflow-y: auto;
@@ -83,72 +86,53 @@ div, input {
   }
   
   .post-list li:last-child {
-    margin-bottom: 100px;
+    margin-bottom: 20px;
   }
 }
 
 .main-content {
 
-  .post-list {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-  
-  
-  @media (min-width: 1024px) {
-    .post-list {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .post-list {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  
-  @media (min-width: 1536px) {
-    .post-list {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  .post-detail-list {
+  .post-detail-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  
-    .post-container {
-      margin: 20px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #f2f2f2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 80%;
-      max-width: 800px;
-    }
+  }
 
-    .post-container.selected {
-      border: 2px solid red;
-    }
+  .post-detail-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, $post-width);
+    grid-auto-rows: $post-height;
+    grid-gap: 10px;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .post-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    overflow: auto;
+  }
+
+  .post-container.selected {
+    border: 2px solid red;
   }
 }
 
 .right-column {
+  position: sticky;
+  top: 100px;
+  right: 0;
+
   width: 300px;
   height: calc(100vh - 200px);
   background-color: blueviolet;
   overflow-y: auto;
   padding: 10px;
-
-  // .post-event {
-  // }
 }
 
 
