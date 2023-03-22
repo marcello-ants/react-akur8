@@ -23,8 +23,8 @@ const PostDetailList: React.FC<Props> = ({
   };
 
   return (
-    <div className="post-detail-list">
-      <ul className="post-list">
+    <div className="post-detail-wrapper">
+      <ul className="post-detail-list">
         {posts.map((post) => (
           <li
             key={post.id}
