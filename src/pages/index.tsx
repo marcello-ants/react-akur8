@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { getPosts } from "@/lib/posts";
+import CreatePost from "@/components/CreatePost";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PostsDetails from "@/components/PostsDetails";
@@ -20,12 +21,13 @@ type Post = {
 };
 
 type Props = {
-  posts: Post[];
+  fetchedPosts: Post[];
 };
 
 type Refs = { [key: string]: React.RefObject<HTMLLIElement> };
 
-const Home = ({ posts }: Props) => {
+const Home = ({ fetchedPosts }: Props) => {
+  const [posts, setPosts] = useState<Post[]>(fetchedPosts);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   const refs = useRef<Refs>(
@@ -41,6 +43,15 @@ const Home = ({ posts }: Props) => {
       behavior: "smooth",
       block: "end",
     });
+  };
+
+  const handleAddPost = (newPost: Post) => {
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+    updateRefs(newPost);
+  };
+
+  const updateRefs = (newPost: Post) => {
+    refs.current[newPost.id] = React.createRef<HTMLLIElement>();
   };
 
   return (
@@ -62,6 +73,7 @@ const Home = ({ posts }: Props) => {
             />
           </div>
           <div className="main-content">
+            <CreatePost onAddPost={handleAddPost} />
             <PostsDetails
               refs={refs.current}
               posts={posts}
@@ -182,10 +194,10 @@ const Home = ({ posts }: Props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const posts = await getPosts();
+  const fetchedPosts = await getPosts();
 
   return {
-    props: { posts },
+    props: { fetchedPosts },
   };
 };
 
