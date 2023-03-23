@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { Post } from "@/types";
 
+type ValidationState = {
+  name: {
+    isValid: boolean;
+    isTouched: boolean;
+  };
+  content: {
+    isValid: boolean;
+    isTouched: boolean;
+  };
+};
+
 type Props = {
   onAddPost: (post: Post) => void;
 };
@@ -8,29 +19,61 @@ type Props = {
 const CreatePost = ({ onAddPost }: Props) => {
   const [name, setName] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(false);
-  const [isTouched, setIsTouched] = useState<boolean>(false);
+  const [validationState, setValidationState] = useState<ValidationState>({
+    name: { isValid: false, isTouched: false },
+    content: { isValid: false, isTouched: false },
+  });
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-    setIsValid(event.target.value.length >= 6);
-    setIsTouched(true);
+    const inputValue = event.target.value;
+    setName(inputValue);
+    setValidationState({
+      ...validationState,
+      name: {
+        isValid: inputValue.length >= 6 || inputValue.length === 0,
+        isTouched: true,
+      },
+    });
+  };
+
+  const handleTitleBlur = () => {
+    setValidationState({
+      ...validationState,
+      name: {
+        isValid: name.length >= 6,
+        isTouched: true,
+      },
+    });
   };
 
   const handleContentChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setContent(event.target.value);
-    setIsTouched(true);
+    const inputValue = event.target.value;
+    setContent(inputValue);
+    setValidationState({
+      ...validationState,
+      content: {
+        isValid: inputValue.trim().length !== 0,
+        isTouched: true,
+      },
+    });
+  };
+
+  const handleContentBlur = () => {
+    setValidationState({
+      ...validationState,
+      content: {
+        isValid: content.trim().length !== 0,
+        isTouched: true,
+      },
+    });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    let id = Date.now().toString();
-    setName("");
-    setContent("");
-    setIsTouched(false);
+    const id = Date.now().toString();
 
     const newPost: Post = {
       id,
@@ -41,13 +84,19 @@ const CreatePost = ({ onAddPost }: Props) => {
     onAddPost(newPost);
     setName("");
     setContent("");
+    setValidationState({
+      name: { isValid: false, isTouched: false },
+      content: { isValid: false, isTouched: false },
+    });
   };
 
   const handleReset = () => {
     setName("");
     setContent("");
-    setIsValid(false);
-    setIsTouched(false);
+    setValidationState({
+      name: { isValid: false, isTouched: false },
+      content: { isValid: false, isTouched: false },
+    });
   };
 
   return (
@@ -61,13 +110,16 @@ const CreatePost = ({ onAddPost }: Props) => {
             id="name"
             value={name}
             onChange={handleTitleChange}
+            onBlur={handleTitleBlur}
             required
           />
-          {name && !isValid && (
-            <span className="error-message">
-              Title must be at least 6 characters.
-            </span>
-          )}
+          {name &&
+            !validationState.name.isValid &&
+            validationState.name.isTouched && (
+              <span className="error-message">
+                Title must be at least 6 characters.
+              </span>
+            )}
         </div>
         <div className="form-group">
           <label htmlFor="content">Content:</label>
@@ -75,15 +127,28 @@ const CreatePost = ({ onAddPost }: Props) => {
             id="content"
             value={content}
             onChange={handleContentChange}
+            onBlur={handleContentBlur}
             required
           />
         </div>
         <div className="form-actions">
-          <button type="submit" disabled={!isValid}>
-            Create
-          </button>
-          <button type="button" disabled={!isTouched} onClick={handleReset}>
+          <button
+            type="button"
+            disabled={
+              !validationState.name.isTouched &&
+              !validationState.content.isTouched
+            }
+            onClick={handleReset}
+          >
             Reset
+          </button>
+          <button
+            type="submit"
+            disabled={
+              !validationState.name.isValid || !validationState.content.isValid
+            }
+          >
+            Save
           </button>
         </div>
       </form>
