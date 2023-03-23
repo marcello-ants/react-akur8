@@ -6,6 +6,7 @@ type Props = {
   selectedPost: Post | null;
   onPostSelected: (post: Post) => void;
   onPostRemoved: (post: Post) => void;
+  onAddEvent: (name: string, type: "created" | "removed", date: Date) => void;
 };
 
 const PostDetailList: React.FC<Props> = ({
@@ -14,6 +15,7 @@ const PostDetailList: React.FC<Props> = ({
   selectedPost,
   onPostSelected,
   onPostRemoved,
+  onAddEvent,
 }) => {
   const handlePostClick = (post: Post) => {
     onPostSelected(post);
@@ -28,6 +30,7 @@ const PostDetailList: React.FC<Props> = ({
 
     if (confirmDelete) {
       onPostRemoved(post);
+      onAddEvent(post.name, "removed", new Date());
     }
   };
 

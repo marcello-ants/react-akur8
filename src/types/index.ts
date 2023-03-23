@@ -3,3 +3,9 @@ export type Post = {
   name: string;
   content: string;
 };
+
+export type Event = {
+  name: string;
+  type: "created" | "removed";
+  date: Date;
+};

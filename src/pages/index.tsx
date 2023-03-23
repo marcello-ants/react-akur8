@@ -4,12 +4,13 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { getPosts } from "@/lib/posts";
-import { Post } from "@/types";
+import { Post, Event } from "@/types";
 import CreatePost from "@/components/CreatePost";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PostsList from "@/components/PostList";
 import PostDetailList from "@/components/PostDetailList";
+import PostEventList from "@/components/PostEventList";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ const Home = ({ fetchedPosts }: Props) => {
   const [posts, setPosts] = useState<Post[]>(fetchedPosts);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [searchText, setSearchText] = useState("");
+  const [events, setEvents] = useState<Event[]>([]);
 
   const refs = useRef<Refs>(
     posts.reduce((acc: Refs, value) => {
@@ -58,10 +60,20 @@ const Home = ({ fetchedPosts }: Props) => {
   const handleAddPost = (newPost: Post) => {
     setPosts((prevPosts) => [...prevPosts, newPost]);
     updateRefs(newPost);
+
+    handleAddEvent(newPost.name, "created", new Date());
   };
 
   const handlePostRemoved = (post: Post) => {
     setPosts((prevPosts) => prevPosts.filter((p) => p.id !== post.id));
+  };
+
+  const handleAddEvent = (
+    name: string,
+    type: "created" | "removed",
+    date: Date
+  ) => {
+    setEvents((prevEvents) => [...prevEvents, { name, type, date }]);
   };
 
   return (
@@ -91,9 +103,12 @@ const Home = ({ fetchedPosts }: Props) => {
               selectedPost={selectedPost}
               onPostSelected={handlePostSelection}
               onPostRemoved={handlePostRemoved}
+              onAddEvent={handleAddEvent}
             />
           </div>
-          <div className="right-column"></div>
+          <div className="right-column">
+            <PostEventList events={events} />
+          </div>
         </main>
         <Footer />
       </div>
