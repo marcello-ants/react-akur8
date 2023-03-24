@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import Head from "next/head";
-import axios from "axios"; // Import Axios library
 import { Post, Event } from "@/types";
 import CreatePost from "@/components/CreatePost";
 import Header from "@/components/Header";
@@ -18,15 +17,16 @@ const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [events, setEvents] = useState<Event[]>([]);
 
+  // fetch initial data
   useEffect(() => {
     const getPosts = async () => {
       const posts = await fetchPosts();
       setPosts(posts);
     };
-
     getPosts();
   }, []);
 
+  // create refs for each post item
   const refs = useRef<Refs>(
     posts.reduce((acc: Refs, value) => {
       acc[value.id] = React.createRef<HTMLLIElement>();
@@ -46,6 +46,7 @@ const Home = () => {
 
   const filteredPosts = filterPosts(posts, searchText);
 
+  // handle post selection and scroll to the selected post
   const handlePostSelection = (post: Post) => {
     setSelectedPost(post);
     refs.current[post.id].current?.scrollIntoView({
@@ -62,6 +63,7 @@ const Home = () => {
     setPosts((prevPosts) => [...prevPosts, newPost]);
     updateRefs(newPost);
 
+    // add event for the new post creation
     handleAddEvent(newPost.name, "created", new Date());
   };
 
