@@ -2,8 +2,8 @@ $font-family: "Roboto", sans-serif;
 
 $primary-color: #f8f8f8;
 $secondary-color: #00aaff;
-$tertiary-color: #f5f8ff;
 $stop-color: #ff6673;
+
 $grayscale-100: #f2f2f2;
 $grayscale-200: #e5e5e5;
 $grayscale-300: #d4d4d4;
@@ -14,16 +14,33 @@ $grayscale-700: #404040;
 $grayscale-800: #262626;
 $grayscale-800: #131313;
 
+$bluescale-100: #f5f8ff;
+$bluescale-200: #d6e4ff;
+$bluescale-300: #adc8ff;
+$bluescale-400: #85a9ff;
+$bluescale-500: #5c8dff;
+$bluescale-600: #3771ff;
+$bluescale-700: #0f55ff;
+$bluescale-800: #0040d9;
+
 $post-width: 300px;
 $post-height: 200px;
 $border-radius: 12px;
+
+@mixin hover-effect {
+  transition: background-color 0.25s ease-in-out, transform 0.25s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
 
 * {
   margin: 0;
   padding: 0;
   border: 0;
   font-family: Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   list-style: none;
 }
 
@@ -76,7 +93,7 @@ h2 {
   position: sticky;
   width: 300px;
   height: calc(100vh - 200px);
-  background-color: $tertiary-color;
+  background-color: $bluescale-100;
   top: 100px;
   padding: 50px 30px;
   overflow-y: auto;
@@ -102,12 +119,17 @@ h2 {
   }
 
   .post-list li {
+    @include hover-effect;
     color: $grayscale-600;
     border: 1px solid $grayscale-800;
     border-radius: $border-radius;
     padding: 6px 10px;
     margin-bottom: 10px;
-    cursor: pointer;
+
+    &:hover {
+      background-color: $bluescale-200;
+      cursor: pointer;
+    }
   }
 
   .post-list li.selected {
@@ -137,13 +159,12 @@ h2 {
   .create-new-post {
     width: 100%;
     max-width: 400px;
+    background-color: $grayscale-100;
     border: 2px solid $grayscale-800;
     border-radius: 10px;
     padding: 20px;
     margin: 0 auto;
     margin-bottom: 40px;
-    background-color: $grayscale-100;
-
     h2 {
       margin-bottom: 16px;
     }
@@ -167,7 +188,7 @@ h2 {
   textarea {
     width: 100%;
     font-size: 1rem;
-    border: 2px solid #ccc;
+    border: 1px solid $grayscale-800;
     border-radius: $border-radius;
     padding: 16px;
     transition: border-color 0.3s ease-in-out;
@@ -185,13 +206,18 @@ h2 {
   }
 
   .create-new-post button {
+    @include hover-effect;
     width: 82px;
     height: 36px;
     font-size: 1.1rem;
-    background-color: $grayscale-600;
+    background-color: $grayscale-500;
     color: $primary-color;
     border: none;
     border-radius: $border-radius;
+
+    &:hover {
+      background-color: $grayscale-600;
+    }
   }
 
   .error-message {
@@ -218,12 +244,18 @@ h2 {
   }
 
   .post-container {
+    @include hover-effect;
     background-color: $grayscale-100;
-    border: 1px solid #ccc;
+    border: 1px solid $grayscale-800;
     border-radius: $border-radius;
     padding: 20px;
     margin: 20px;
     overflow: auto;
+
+    &:hover {
+      background-color: $grayscale-200;
+      cursor: pointer;
+    }
   }
 
   .post-detail-title {
@@ -257,6 +289,7 @@ h2 {
   }
 
   .event-list-item {
+    @include hover-effect;
     color: $grayscale-600;
     background-color: $grayscale-100;
     border: 1px solid $grayscale-800;
