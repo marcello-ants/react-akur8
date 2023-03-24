@@ -1,4 +1,5 @@
 import { Post } from "@/types";
+import XIcon from "@/components/XIcon";
 
 type Props = {
   refs: { [key: string]: React.RefObject<HTMLLIElement> };
@@ -48,12 +49,12 @@ const PostDetailList: React.FC<Props> = ({
           >
             <div className="post-detail-title">
               <h3>{post.name}</h3>
-              <span
+              <div
                 className="remove-icon"
                 onClick={(event) => handlePostRemove(event, post)}
               >
-                X
-              </span>
+                <XIcon />
+              </div>
             </div>
             <p>{post.content}</p>
           </li>
