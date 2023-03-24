@@ -95,7 +95,7 @@ const Home = ({ fetchedPosts }: Props) => {
               onSearchTextChange={handleSearchTextChange}
             />
           </div>
-          <div className="main-content">
+          <div className="content">
             <CreatePost onAddPost={handleAddPost} />
             <PostDetailList
               refs={refs.current}

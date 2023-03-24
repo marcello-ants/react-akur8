@@ -23,6 +23,7 @@ const PostList: React.FC<Props> = ({
 
   return (
     <div>
+      <h2 className="post-list-title">Post List</h2>
       <input
         type="text"
         placeholder="Filter posts"

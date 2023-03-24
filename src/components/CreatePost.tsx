@@ -101,7 +101,7 @@ const CreatePost = ({ onAddPost }: Props) => {
 
   return (
     <div className="create-new-post">
-      <h3>Create new post</h3>
+      <h2>Create new post</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title:</label>
