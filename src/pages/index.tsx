@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
-import { GetStaticProps } from "next";
+import React, { useRef, useState, useEffect } from "react";
 import Head from "next/head";
-import { getPosts } from "@/lib/posts";
+import axios from "axios"; // Import Axios library
 import { Post, Event } from "@/types";
 import CreatePost from "@/components/CreatePost";
 import Header from "@/components/Header";
@@ -9,18 +8,24 @@ import Footer from "@/components/Footer";
 import PostsList from "@/components/PostList";
 import PostDetailList from "@/components/PostDetailList";
 import PostEventList from "@/components/PostEventList";
-
-type Props = {
-  fetchedPosts: Post[];
-};
+import { fetchPosts } from "@/lib/posts";
 
 type Refs = { [key: string]: React.RefObject<HTMLLIElement> };
 
-const Home = ({ fetchedPosts }: Props) => {
-  const [posts, setPosts] = useState<Post[]>(fetchedPosts);
+const Home = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [searchText, setSearchText] = useState("");
   const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const posts = await fetchPosts();
+      setPosts(posts);
+    };
+
+    getPosts();
+  }, []);
 
   const refs = useRef<Refs>(
     posts.reduce((acc: Refs, value) => {
@@ -110,14 +115,6 @@ const Home = ({ fetchedPosts }: Props) => {
       </div>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const fetchedPosts = await getPosts();
-
-  return {
-    props: { fetchedPosts },
-  };
 };
 
 export default Home;
